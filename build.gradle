@@ -1,0 +1,42 @@
+apply from: "mx.gradle"
+
+dependencies {
+    compile files('D:/erpHome/csc/WEB-INF/lib/mf.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/mq.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/ms.jar')
+    //compile files('D:/erpHome/csc/WEB-INF/lib/mf-api.jar')
+    //compile files('D:/erpHome/csc/WEB-INF/lib/mq-api.jar')
+    //compile files('D:/erpHome/csc/WEB-INF/lib/ms-api.jar')
+   	//testCompile files('D:/erpHome/csc/WEB-INF/lib/mf-core.jar') 						
+    //testCompile files('D:/erpHome/csc/WEB-INF/lib/mq-core.jar')
+    //testCompile files('D:/erpHome/csc/WEB-INF/lib/ms-core.jar')  						
+    
+}
+
+task deleteJar(type: Delete) {
+    delete fileTree(myErphomeCscDir + '/WEB-INF/lib') {
+    	include '**/*.properties'
+        //include '**/'+mySysId+'.jar'
+        //include '**/'+mySysId+'-api.jar'
+        //include '**/'+mySysId+'-core.jar'
+    }
+}
+
+task copyJar(type: Copy, dependsOn: 'deleteJar') {
+     from mxJar
+     from apiJar
+     from coreJar
+     into myErphomeCscDir + '/WEB-INF/lib'
+}
+
+build.dependsOn copyJar
+
+//##for mp only
+task mpDpmsUnitTestJar(type: Jar) {
+  description '@@ 包單元測試用的Jar.有更新時請自行copy放到D:/erphome/csc'
+	archiveName "mp-dpms-unittest.jar"
+    from(sourceSets.main.output) {
+        include "com/icsc/dpms/**"
+    }
+}
+assemble.dependsOn mpDpmsUnitTestJar

@@ -1,0 +1,300 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+compileJava {
+  	options.bootClasspath = "D:/tomcat6/java170/jre/lib/rt.jar"
+	options.encoding = 'UTF-8'
+    // options.compilerArgs << "-Xlint:unchecked"
+}
+
+compileTestJava {
+  	options.bootClasspath = "D:/tomcat6/java170/jre/lib/rt.jar"
+	options.encoding = 'UTF-8'
+    // options.compilerArgs << "-Xlint:unchecked"
+}
+
+ext {
+	myProjectName = property('project.name')
+	myProjectDescription = property('project.description')
+	
+	mySysId = property('sys.id')
+	myProjectDir = projectDir.toString().replace("\\","/")
+	myErphomeCscDir = property('erp.home.csc')
+	myErphomeSysDir = myErphomeCscDir + '/' + mySysId
+}
+
+eclipse {
+   project {
+     name = myProjectName
+     comment = myProjectDescription
+   }
+}   
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+	//compile fileTree(dir: 'D:/erpHome/csc/WEB-INF/lib', include: '*.jar')
+	//compile fileTree(dir: 'D:/Tomcat6/tomcatCommon/lib', include: '*.jar')
+	//compile fileTree(dir: 'D:/Tomcat6/tomcatCommon/bin', include: '*.jar')
+
+    compile files('D:/erpHome/csc/WEB-INF/lib/commons-beanutils-1.8.3.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/commons-codec-1.8.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/commons-collections-3.2.1.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/commons-digester-1.7.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/commons-discovery-0.2.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/commons-fileupload-1.3.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/commons-httpclient-3.0.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/commons-io-2.4.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/commons-lang-2.6.jar')			// @Deprecated commons lang, using lang3
+    compile files('D:/erpHome/csc/WEB-INF/lib/commons-lang3-3.1.jar')			// commons lang3
+    compile files('D:/erpHome/csc/WEB-INF/lib/commons-logging-1.1.1.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/commons-net-3.3.jar')
+
+    compile files('D:/erpHome/csc/WEB-INF/lib/poi-3.9-20121203.jar')			// excel
+    compile files('D:/erpHome/csc/WEB-INF/lib/poi-ooxml-3.9-20121203.jar')		// excel
+    compile files('D:/erpHome/csc/WEB-INF/lib/tika-app-1.6.jar')				// FOR BLOB, CLOB access
+    compile files('D:/erpHome/csc/WEB-INF/lib/velocity-1.7.jar')				// velocity template
+ 
+    compile files('D:/erpHome/csc/WEB-INF/lib/axis-1.4_2.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/dom4j-1.6.1.jar')				// dom4j
+    compile files('D:/erpHome/csc/WEB-INF/lib/mail-1.4.jar')				// mail
+    compile files('D:/erpHome/csc/WEB-INF/lib/jcifs-1.3.18.jar')			// share folder
+    compile files('D:/erpHome/csc/WEB-INF/lib/jdom-1.0.jar')				// jdom
+    compile files('D:/erpHome/csc/WEB-INF/lib/jcommon-1.0.0.jar')			// jfree
+    compile files('D:/erpHome/csc/WEB-INF/lib/jfreechart-1.0.1.jar')		// jfree
+    compile files('D:/erpHome/csc/WEB-INF/lib/log4j-1.2.17.jar')			// log4j
+    compile files('D:/erpHome/csc/WEB-INF/lib/bsh-2.0b4.jar')				// beanshell
+    compile files('D:/erpHome/csc/WEB-INF/lib/jackson-core-asl-1.9.13.jar')		// @Deprecated json util 但bpms有參考到
+    compile files('D:/erpHome/csc/WEB-INF/lib/jackson-core-2.2.0.jar')		// fasterxml json util
+    compile files('D:/erpHome/csc/WEB-INF/lib/jackson-databind-2.2.0.jar')	// fasterxml json util
+    compile files('D:/erpHome/csc/WEB-INF/lib/javax.ws.rs-api-2.0-m10.jar')	// web service
+    compile files('D:/erpHome/csc/WEB-INF/lib/wsdl4j-1.6.3.jar')			// soap web service
+    compile files('D:/erpHome/csc/WEB-INF/lib/slf4j-api-1.7.7.jar')			// slf4j
+    compile files('D:/erpHome/csc/WEB-INF/lib/slf4j-jdk14-1.7.7.jar')		// slf4j
+    //compile files('D:/erpHome/csc/WEB-INF/lib/itext-2.1.7.jar')			// jasperreport pdf
+    //compile files('D:/erpHome/csc/WEB-INF/lib/jasperreports-6.3.1.jar')	// jasperreport
+    compile files('D:/erpHome/csc/WEB-INF/lib/itext-1.2.3.jar')				// @Deprecated jasperreport pdf 
+    compile files('D:/erpHome/csc/WEB-INF/lib/jasperreports-2.0.4.jar')		// @Deprecated jasperreport
+	compile files('D:/erpHome/csc/WEB-INF/lib/iTextAsian.jar')              // 字型 for pdf use
+    
+    compile files('D:/erpHome/csc/mp-dpms-unittest.jar') 				// unittest use, dejc301.class 要放在de.jar的前面
+ 
+    compile files('D:/erpHome/csc/WEB-INF/lib/bpms-client-java7-1.1.8.jar') 	// for bpms
+    compile files('D:/erpHome/csc/WEB-INF/lib/da.jar')							// da web service
+    compile files('D:/erpHome/csc/WEB-INF/lib/dd.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/de.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/dez.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/di2.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/dj.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/dq.jar')   					// don't use , --> dqf
+    compile files('D:/erpHome/csc/WEB-INF/lib/dqf.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/dqf-client.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/dqf-test.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/dr.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/ds.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/du.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/dw.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/dx.jar')
+	compile files('D:/erpHome/csc/WEB-INF/lib/gk.jar')						// dw api use
+	compile files('D:/erpHome/csc/WEB-INF/lib/gwt.jar')						// dw api use
+	compile files('D:/erpHome/csc/WEB-INF/lib/ireport.jar')					// for draw
+	compile files('D:/erpHome/csc/WEB-INF/lib/jaxrpc.jar')					// Faxcore , axis web service
+    compile files('D:/erpHome/csc/WEB-INF/lib/mip.jar') 					// for aa
+    compile files('D:/erpHome/csc/WEB-INF/lib/spring.jar') 					// for aa
+    compile files('D:/erpHome/csc/WEB-INF/lib/um.jar')
+    
+    compile files('D:/Tomcat6/tomcatCommon/lib/servlet-api.jar')			// VO
+    compile files('D:/Tomcat6/tomcatCommon/lib/catalina.jar')				// for mpjcMockDsCom
+    compile files('D:/Tomcat6/tomcatCommon/lib/tomcat-dbcp.jar')			// for mpjcMockDsCom
+    compile files('D:/Tomcat6/tomcatCommon/bin/tomcat-juli.jar')			// for mpjcMockDsCom
+	compile files('D:/Tomcat6/tomcatCommon/lib/db2jcc.jar')					// DB2 jdbc driver com.ibm.db2.jcc.DB2Driver
+	compile files('D:/Tomcat6/tomcatCommon/lib/sqljdbc4.jar')				// SQL Server jdbc driver
+
+    compile files('D:/erpHome/csc/WEB-INF/lib/aa.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/ac.jar')
+	compile files('D:/erpHome/csc/WEB-INF/lib/ap.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/fb.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/fc.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/fl.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/ka.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/mr.jar') //SC會使用
+    compile files('D:/erpHome/csc/WEB-INF/lib/pb.jar')
+	compile files('D:/erpHome/csc/WEB-INF/lib/pc.jar')
+    compile files('D:/erpHome/csc/WEB-INF/lib/pd.jar')
+	compile files('D:/erpHome/csc/WEB-INF/lib/pp.jar')
+	compile files('D:/erpHome/csc/WEB-INF/lib/sc.jar')
+	compile files('D:/erpHome/csc/WEB-INF/lib/ss.jar')
+
+	compile files('D:/erpHome/csc/WEB-INF/lib/mpDocLock-1.0.jar')			// mp 專用 自訂 DocLock Client
+    compile files('D:/erpHome/csc/WEB-INF/lib/mqfax-1.1.jar')				// mq 專用 自訂 Faxcore Web Services Client
+
+    compile files('D:/erpHome/csc/WEB-INF/lib/font_icsc.jar')				// 標楷體字型, jasperreports 2.0.4 用
+
+    testCompile 'org.testng:testng:6.9.10'									// unit test
+
+}
+
+sourceSets.main.java.srcDirs = ["src"]
+sourceSets.main.resources.srcDirs = ["resources"]
+
+// 只要包mx-api.jar時, api source只依賴3-party及dpms
+// 1. 可  remark build.gradle中，其他mx及系統的 jar
+// 2. remark test source dir 
+// 3. exclude core source
+
+// 只要包mx-api.jar時，可remark 以下 test source
+sourceSets.test.java.srcDirs = ["testsrc"]
+sourceSets.test.resources.srcDirs = ["testresources"]
+
+// 只要包mx-api.jar時，可移除remark，以便exclude core source
+//sourceSets {
+//	main {
+//      	java {
+//          	exclude 'com/icsc/'+mySysId+'/api/'+mySysId+'jc*.java'
+//          	exclude 'com/icsc/'+mySysId+'/api/base/'+mySysId+'jc*.java'
+//          	exclude 'com/icsc/'+mySysId+'/batch/**'
+//          	exclude 'com/icsc/'+mySysId+'/dao/'+mySysId+'*DAO.java'
+//          	exclude 'com/icsc/'+mySysId+'/dao/ext/**'
+//          	exclude 'com/icsc/'+mySysId+'/func/**'
+//          	exclude 'com/icsc/'+mySysId+'/link/'+mySysId+'jc*.java'
+//          	exclude 'com/icsc/'+mySysId+'/logic/**'
+//          	exclude 'com/icsc/'+mySysId+'/rpt/**'
+//          	exclude 'com/icsc/'+mySysId+'/select/**'
+//          	exclude 'com/icsc/'+mySysId+'/service/**'
+//          	exclude 'com/icsc/'+mySysId+'/upload/**'
+//          	exclude 'com/icsc/'+mySysId+'/web/**'
+//      	}
+//  	}
+//}
+
+javadoc {
+    options.encoding = "UTF-8"
+}
+
+task syncHtml(type: Sync) {
+	description '@@ Sync html to csc/html'
+    from myProjectDir + '/html'
+    into myErphomeCscDir + '/html/' + mySysId
+}
+
+task syncDxFile(type: Sync) {
+	description '@@ Sync dx file to csc/work/dx'
+    from myProjectDir + '/files/dx'
+    into myErphomeCscDir + '/work/'+mySysId+'/dx'
+}
+
+task syncConfig(type: Sync) {
+	description '@@ Sync config to csc/config'
+    from myProjectDir+'/config/csc/'+mySysId
+    into myErphomeCscDir+'/config/csc/'+mySysId
+}
+
+task syncGulLib(type: Sync) {
+	description '@@ Sync gul/lib to csc/html/gul/lib'
+    from myProjectDir+'/gul/lib'
+    into myErphomeCscDir+'/html/gul/lib'
+}
+
+task hello {
+    doLast {
+    	println "@@java.home=" + System.getProperty("java.home")
+        println '@@Hello, mySysId=[' + mySysId + ']'
+        println '@@Hello, myProjectDir=[' + myProjectDir + ']'
+        println '@@Hello, myErphomeCscDir=[' + myErphomeCscDir + ']'
+        println '@@Hello, myErphomeSysDir=[' + myErphomeSysDir + ']'
+    }
+}
+
+task syncJsp(type: Sync) {
+	description '@@ Sync jsp to csc/mx/jsp'
+    from myProjectDir+'/jsp'
+    into myErphomeSysDir+'/jsp'
+}
+
+task syncGul(type: Sync) {
+	description '@@ Sync gul to csc/mx/gul'
+    from myProjectDir+'/gul'
+    into myErphomeSysDir+'/gul'
+}
+
+task syncFile(type: Sync) {
+	description '@@ Sync file to csc/mx/files'
+    from myProjectDir+'/files'
+    into myErphomeSysDir+'/files'
+}
+
+compileJava.dependsOn syncHtml, syncDxFile, syncConfig, syncGulLib, hello
+
+// 本專案可以由git clone出來，放在D:/erphome/csc/mx
+// 也可以放在其他地方，gradle build時，會自動將相關jsp/gul/files同步到D:/erphome/csc/mx
+if (!myProjectDir.equalsIgnoreCase(myErphomeSysDir)) {
+	println "@@ sync project jsp/gul/files to D:/erpHome/csc/mx"
+	compileJava.dependsOn syncJsp, syncGul, syncFile
+} else {
+	println "@@ your project is under D:/erpHome/csc/mx, skip sync jsp/gul/files"
+}
+
+task mxJar(type: Jar) {
+	archiveName mySysId+'.jar'
+    from(sourceSets.main.output) {
+        include 'com/icsc/'+mySysId+'/**'
+    }
+}
+
+task apiJar(type: Jar) {
+	archiveName mySysId+'-api.jar'
+    from(sourceSets.main.output) {
+        include 'com/icsc/'+mySysId+'/api/'+mySysId+'ji*.class'
+        include 'com/icsc/'+mySysId+'/api/base/'+mySysId+'ji*.class'
+        include 'com/icsc/'+mySysId+'/api/bean/*.class'
+        include 'com/icsc/'+mySysId+'/api/bean/base/**'
+        include 'com/icsc/'+mySysId+'/api/factory/**'
+        include 'com/icsc/'+mySysId+'/bean/**'
+        include 'com/icsc/'+mySysId+'/dao/'+mySysId+'*VO.class'
+        include 'com/icsc/'+mySysId+'/exception/**'
+        include 'com/icsc/'+mySysId+'/link/'+mySysId+'ji*.class'
+        include 'com/icsc/'+mySysId+'/link/bean/**'
+        include 'com/icsc/'+mySysId+'/srs/**'
+        include 'com/icsc/'+mySysId+'/util/**'
+    }
+}
+
+task coreJar(type: Jar) {
+	archiveName mySysId+'-core.jar'
+    from(sourceSets.main.output) {
+        exclude 'com/icsc/'+mySysId+'/api/'+mySysId+'ji*.class'
+        exclude 'com/icsc/'+mySysId+'/api/base/'+mySysId+'ji*.class'
+        exclude 'com/icsc/'+mySysId+'/api/bean/*.class'
+        exclude 'com/icsc/'+mySysId+'/api/bean/base/**'
+        exclude 'com/icsc/'+mySysId+'/api/factory/**'
+        exclude 'com/icsc/'+mySysId+'/bean/**'
+        exclude 'com/icsc/'+mySysId+'/dao/'+mySysId+'*VO.class'
+        exclude 'com/icsc/'+mySysId+'/exception/**'
+        exclude 'com/icsc/'+mySysId+'/link/'+mySysId+'ji*.class'
+        exclude 'com/icsc/'+mySysId+'/link/bean/**'
+        exclude 'com/icsc/'+mySysId+'/srs/**'
+        exclude 'com/icsc/'+mySysId+'/util/**'
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task testSourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'test-sources'
+    from sourceSets.test.allSource
+}
+
+assemble.dependsOn mxJar, apiJar, coreJar, sourcesJar, testSourcesJar
+
+defaultTasks 'build'
+
+test.onlyIf { false }

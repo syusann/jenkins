@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="all" name="copymxgradle">
+	
+	<!-- copy mp的mx.gradle到mf/mq/ms -->
+
+	<target name="all">
+		<copy file="D:/erphome/csc/mp/mx.gradle" tofile="D:/erphome/csc/mf/mx.gradle" overwrite="true" />
+		<copy file="D:/erphome/csc/mp/mx.gradle" tofile="D:/erphome/csc/mq/mx.gradle" overwrite="true" />
+		<copy file="D:/erphome/csc/mp/mx.gradle" tofile="D:/erphome/csc/ms/mx.gradle" overwrite="true" />
+	</target>
+
+</project>
